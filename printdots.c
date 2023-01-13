@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 20:21:47 by delvira-          #+#    #+#             */
-/*   Updated: 2022/12/14 17:06:53 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:31:34 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,19 @@ void	pinta_rayas(t_point point0, t_point point1, mlx_image_t *img)
 	}
 }
 
-void	ft_draw_down_lines(t_point **matrix, mlx_image_t *img, char *filename)
+void	ft_draw_down_lines(t_point **matrix, mlx_image_t *img, t_data data)
 {
 	int	row;
 	int	col;
-	int	width;
-	int	heigh;
+
 
 	row = 0;
 	col = 0;
-	heigh = ft_get_heigh(filename);
-	width = ft_get_line_width(filename);
-	while (col < width)
+
+	while (col < data.width)
 	{
 		row = 0;
-		while (row < heigh - 1)
+		while (row < data.heigh - 1)
 		{
 			pinta_rayas(matrix[row][col], matrix[row + 1][col], img);
 			row++;
@@ -74,20 +72,16 @@ void	ft_draw_down_lines(t_point **matrix, mlx_image_t *img, char *filename)
 	}
 }
 
-void	ft_draw_right_lines(mlx_image_t *img, t_point **matrix, char *filename)
+void	ft_draw_right_lines(mlx_image_t *img, t_point **matrix, t_data data)
 {
 	int	row;
 	int	col;
-	int	heigh;
-	int	width;
 
-	heigh = ft_get_heigh(filename);
-	width = ft_get_line_width(filename);
 	row = 0;
-	while (row < heigh)
+	while (row < data.heigh)
 	{
 		col = 0;
-		while (col < width -1)
+		while (col < data.width -1)
 		{
 			pinta_rayas(matrix[row][col], matrix[row][col + 1], img);
 			col++;
@@ -96,21 +90,17 @@ void	ft_draw_right_lines(mlx_image_t *img, t_point **matrix, char *filename)
 	}
 }
 
-void	ft_printdots(mlx_image_t *img, t_point **matrix, char *filename)
+void	ft_printdots(mlx_image_t *img, t_point **matrix, t_data data)
 {
 	int	row;
 	int	col;
-	int	heigh;
-	int	width;
 
-	heigh = ft_get_heigh(filename);
-	width = ft_get_line_width(filename);
 	row = 0;
 	col = 0;
-	while (row < heigh)
+	while (row < data.heigh)
 	{
 		col = 0;
-		while (col < width)
+		while (col < data.width)
 		{
 			mlx_put_pixel(img, matrix[row][col].xcoord,
 				matrix[row][col].ycoord, 0xFF0000FF);
@@ -119,8 +109,8 @@ void	ft_printdots(mlx_image_t *img, t_point **matrix, char *filename)
 		}
 		row++;
 	}
-	ft_draw_down_lines(matrix, img, filename);
-	ft_draw_right_lines(img, matrix, filename);
+	ft_draw_down_lines(matrix, img, data);
+	ft_draw_right_lines(img, matrix, data);
 }
 
 // int	main(void)

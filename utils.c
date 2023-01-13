@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:43:37 by delvira-          #+#    #+#             */
-/*   Updated: 2022/12/12 15:45:23 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/13 12:24:52 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,26 @@ int	ft_get_heigh(char *filename)
 	return (i);
 }
 
-int	ft_get_line_width(char *filename)
+int	ft_get_line_width(char *filename, int heigh)
 {
 	char	*str;
 	char	**linesplited;
 	int		x;
 	int		fd;
 	int		i;
+	int		j;
 
 	x = 0;
+	j = 0;
 	i = 0;
 	fd = open(filename, O_RDONLY);
-	str = ft_get_next_line(fd);
+	//str = ft_get_next_line(fd);
+		while (j < heigh)
+	{
+		str = ft_get_next_line(fd);
+		j++;
+	}
+	ft_printf("\nline in width %s", str);
 	linesplited = ft_split(str, ' ');
 	while (linesplited[x])
 	{
@@ -53,9 +61,9 @@ int	ft_get_line_width(char *filename)
 			i = 1;
 		x++;
 	}
-	close(fd);
-	free (str);
 	ft_free_split(linesplited);
+	free (str);
+	close(fd);
 	return (x - i);
 }
 
