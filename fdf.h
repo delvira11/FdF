@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 20:29:46 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/13 13:43:49 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:55:15 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	ft_draw_right_lines(mlx_image_t *img, t_point **matrix, t_data data);
 void	ft_printdots(mlx_image_t *img, t_point **matrix, t_data data);
 void	ft_free_split(char **split);
 int		ft_colors(int diffvalor);
+void	ft_sizecheck(t_point **matrix, t_red a);
 
 #	endif

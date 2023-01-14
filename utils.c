@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:43:37 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/14 13:35:49 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:54:56 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,15 @@ void	ft_print_big_dot(mlx_image_t *img, t_point point, uint32_t color)
 		point.ycoord++;
 	}
 	return ;
+}
+
+void	ft_sizecheck(t_point **matrix, t_red a)
+{
+	if (matrix[a.x][a.i].xcoord < 0 || matrix[a.x][a.i].ycoord < 0)
+	{
+		perror("size too big for screen");
+		exit(EXIT_FAILURE);
+	}
 }
 
 int	ft_colors(int diffvalor)

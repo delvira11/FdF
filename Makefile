@@ -41,5 +41,5 @@ re: clean fclean all
 push:
 	git add .
 	git status
-	git commit -m "antes de destruirlo1"
+	git commit -m "pre meml"
 	git push -u origin main

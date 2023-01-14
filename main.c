@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:46:36 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/14 13:43:47 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:10:59 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,17 @@ t_point	**ft_matrix_fill(t_point **matrix, t_data data, int fd, t_red a)
 		while (linesplited[a.i])
 		{
 		matrix[a.x][a.i].valor = ft_atoi(linesplited[a.i]);
-		matrix[a.x][a.i].xcoord = ((data.xcoor - data.ycoor) * cos(0.5)) + 900;
+		matrix[a.x][a.i].xcoord = ((data.xcoor - data.ycoor) * cos(0.5)) + 1200;
 		matrix[a.x][a.i].ycoord = ((data.xcoor + data.ycoor) * sin(0.5) + 300
-					- matrix[a.x][a.i].valor * 10);
-			if (matrix[a.x][a.i].xcoord < 0 || matrix[a.x][a.i].ycoord < 0)
-			{
-				perror("size too big for screen");
-				exit(EXIT_FAILURE);
-			}
+					- matrix[a.x][a.i].valor * 5);
+			ft_sizecheck(matrix, a);
 			a.i++;
-			data.xcoor += 25;
+			data.xcoor += 20;
 		}
 		//ft_free_split(linesplited);
 		//free (a.line);
 		a.line = ft_get_next_line(fd);
-		data.ycoor += 25;
+		data.ycoor += 20;
 		a.x++;
 	}
 	//free (a.line);
@@ -106,13 +102,16 @@ int	main(int argc, char *argv[])
 	char			*filename;
 	t_data			data;
 
+	if (argc > 2 != argc < 2)
+	{
+		perror("number of arguments incorrect");
+		exit(EXIT_FAILURE);
+	}
 	filename = argv[1];
 	data.heigh = ft_get_heigh(filename);
 	data.width = ft_get_line_width(filename, data.heigh);
 	ft_printf("\nread heigh %i", data.heigh);
 	ft_printf("\nreal width %i\n", data.width);
-	if (argc > 2 != argc < 2)
-		return (0);
 	mlx = mlx_init(5000, 5000, "test", false);
 	img = mlx_new_image(mlx, 10000, 10000);
 	matrix = ft_matrix(filename, data);
@@ -120,8 +119,8 @@ int	main(int argc, char *argv[])
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
-	system("leaks -q fdf");
 }
+	//system("leaks -q fdf");
 
 // int	main(void)
 // {
