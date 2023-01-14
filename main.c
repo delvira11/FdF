@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:46:36 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/14 14:10:59 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/14 14:13:18 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,10 @@ t_point	**ft_matrix_fill(t_point **matrix, t_data data, int fd, t_red a)
 			a.i++;
 			data.xcoor += 20;
 		}
-		//ft_free_split(linesplited);
-		//free (a.line);
 		a.line = ft_get_next_line(fd);
 		data.ycoor += 20;
 		a.x++;
 	}
-	//free (a.line);
 	return (matrix);
 }
 
@@ -110,8 +107,6 @@ int	main(int argc, char *argv[])
 	filename = argv[1];
 	data.heigh = ft_get_heigh(filename);
 	data.width = ft_get_line_width(filename, data.heigh);
-	ft_printf("\nread heigh %i", data.heigh);
-	ft_printf("\nreal width %i\n", data.width);
 	mlx = mlx_init(5000, 5000, "test", false);
 	img = mlx_new_image(mlx, 10000, 10000);
 	matrix = ft_matrix(filename, data);
