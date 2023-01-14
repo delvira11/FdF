@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 20:29:46 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/13 12:31:06 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/13 13:43:49 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,15 @@ typedef struct s_point {
 typedef struct s_data {
 	int	heigh;
 	int	width;
+	int	xcoor;
+	int	ycoor;
 }	t_data;
+
+typedef struct s_red {
+	int		x;
+	int		i;
+	char	*line;
+}	t_red;
 
 t_point	**ft_matrix(char *filename, t_data data);
 int		ft_get_heigh(char *filename);
@@ -37,4 +45,4 @@ void	ft_printdots(mlx_image_t *img, t_point **matrix, t_data data);
 void	ft_free_split(char **split);
 int		ft_colors(int diffvalor);
 
-# endif
+#	endif

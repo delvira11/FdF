@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 19:43:37 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/13 12:24:52 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:35:49 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,21 @@ int	ft_get_line_width(char *filename, int heigh)
 	int		x;
 	int		fd;
 	int		i;
-	int		j;
 
 	x = 0;
-	j = 0;
-	i = 0;
 	fd = open(filename, O_RDONLY);
-	//str = ft_get_next_line(fd);
-		while (j < heigh)
+	str = ft_get_next_line(fd);
+	while (x++ < heigh - 1)
 	{
+		free(str);
 		str = ft_get_next_line(fd);
-		j++;
 	}
-	ft_printf("\nline in width %s", str);
+	x = 0;
 	linesplited = ft_split(str, ' ');
 	while (linesplited[x])
 	{
-		if (linesplited[x][0] == '\n')
+		if (linesplited[x++][0] == '\n')
 			i = 1;
-		x++;
 	}
 	ft_free_split(linesplited);
 	free (str);

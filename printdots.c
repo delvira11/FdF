@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 20:21:47 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/13 12:31:34 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/13 13:53:19 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ void	ft_draw_down_lines(t_point **matrix, mlx_image_t *img, t_data data)
 	int	row;
 	int	col;
 
-
 	row = 0;
 	col = 0;
-
 	while (col < data.width)
 	{
 		row = 0;
@@ -104,7 +102,7 @@ void	ft_printdots(mlx_image_t *img, t_point **matrix, t_data data)
 		{
 			mlx_put_pixel(img, matrix[row][col].xcoord,
 				matrix[row][col].ycoord, 0xFF0000FF);
-			//ft_print_big_dot(img, matrix[row][col], 0xFF0000FF);
+			ft_print_big_dot(img, matrix[row][col], 0xFF0000FF);
 			col++;
 		}
 		row++;

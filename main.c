@@ -6,7 +6,7 @@
 /*   By: delvira- <delvira-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:46:36 by delvira-          #+#    #+#             */
-/*   Updated: 2023/01/13 12:34:48 by delvira-         ###   ########.fr       */
+/*   Updated: 2023/01/14 13:43:47 by delvira-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,60 +40,49 @@ void	ft_free_split(char **split)
 	free (split);
 }
 
-char	*lineline()
+t_point	**ft_matrix_fill(t_point **matrix, t_data data, int fd, t_red a)
 {
-	int fd = open("test.txt", O_RDONLY);
-	char	*line;
-	line = ft_get_next_line(fd);
-	ft_printf("\nfunc %s", line);
-
-	return (line); 
-}
-
-t_point	**ft_matrix_fill(t_point **matrix, char *filename, t_data data)
-{
-	int		i;
-	int		x;
-	char	*line;
 	char	**linesplited;
-	int		xcoord;
-	int		ycoord;
-	x = 0;
-	xcoord = 0;
-	ycoord = 0;
-	int fd = open(filename, O_RDONLY);
-	line = ft_get_next_line(fd);
-	ft_printf("\nlinexd: %s", line);
-	while (x < data.heigh)
+
+	a.line = ft_get_next_line(fd);
+	while (a.x < data.heigh)
 	{
-		i = 0;
-		xcoord = 0;
-		linesplited = ft_split(line, ' ');
-		while (linesplited[i])
+		a.i = 0;
+		data.xcoor = 0;
+		linesplited = ft_split(a.line, ' ');
+		while (linesplited[a.i])
 		{
-			matrix[x][i].valor = ft_atoi(linesplited[i]);
-			matrix[x][i].xcoord = ((xcoord - ycoord) * cos(0.5)) + 900;
-			matrix[x][i].ycoord = ((xcoord + ycoord) * sin(0.5) + 500
-					- matrix[x][i].valor * 1);
-			i++;
-			xcoord += 25;
+		matrix[a.x][a.i].valor = ft_atoi(linesplited[a.i]);
+		matrix[a.x][a.i].xcoord = ((data.xcoor - data.ycoor) * cos(0.5)) + 900;
+		matrix[a.x][a.i].ycoord = ((data.xcoor + data.ycoor) * sin(0.5) + 300
+					- matrix[a.x][a.i].valor * 10);
+			if (matrix[a.x][a.i].xcoord < 0 || matrix[a.x][a.i].ycoord < 0)
+			{
+				perror("size too big for screen");
+				exit(EXIT_FAILURE);
+			}
+			a.i++;
+			data.xcoor += 25;
 		}
 		//ft_free_split(linesplited);
-		//free (line);
-		line = ft_get_next_line(fd);
-		ycoord += 25;
-		x++;
+		//free (a.line);
+		a.line = ft_get_next_line(fd);
+		data.ycoor += 25;
+		a.x++;
 	}
-	free (line);
+	//free (a.line);
 	return (matrix);
 }
 
 t_point	**ft_matrix(char *filename, t_data data)
 {
-	t_point		**matrix;
-	int			malloccounter;
+	t_point			**matrix;
+	int				malloccounter;
+	int				fd;
+	t_red			red_line;
 
-
+	red_line.x = 0;
+	fd = open(filename, O_RDONLY);
 	malloccounter = 0;
 	matrix = (t_point **)malloc(data.heigh * sizeof(t_point *));
 	if (!matrix)
@@ -105,7 +94,7 @@ t_point	**ft_matrix(char *filename, t_data data)
 			return (NULL);
 		malloccounter++;
 	}
-	matrix = ft_matrix_fill(matrix, filename, data);
+	matrix = ft_matrix_fill(matrix, data, fd, red_line);
 	return (matrix);
 }
 
@@ -127,24 +116,11 @@ int	main(int argc, char *argv[])
 	mlx = mlx_init(5000, 5000, "test", false);
 	img = mlx_new_image(mlx, 10000, 10000);
 	matrix = ft_matrix(filename, data);
-		int row, columns;
-for (row=0; row<data.heigh; row++)
-{
-    for(columns=0; columns<data.width; columns++)
-    {
-		// printf("row: %i\n", row);
-		// printf("col: %i\n", columns);
-		printf("%i ", matrix[row][columns].valor);
-		// printf("x: %i\n", matrix[row][columns].xcoord);
-		// printf("y: %i\n\n", matrix[row][columns].ycoord);
-    }
-    printf("\n");
-}
-
 	ft_printdots(img, matrix, data);
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
+	system("leaks -q fdf");
 }
 
 // int	main(void)
